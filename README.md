@@ -13,7 +13,29 @@ and Docker/Kubernetes troubleshooting.
 The workflow emphasizes root-cause evidence, impact analysis, backward
 compatibility, state correctness, focused verification, and safe delivery.
 
-## Install
+## Install with Skills CLI
+
+Install from the public repository and choose the available skill interactively:
+
+```bash
+npx skills@latest add namehousiqi/skills
+```
+
+Install `hsq-develop` globally for personal use without prompts:
+
+```bash
+npx skills@latest add namehousiqi/skills@hsq-develop -g -y
+```
+
+Install it in the current project instead:
+
+```bash
+npx skills@latest add namehousiqi/skills@hsq-develop -y
+```
+
+The CLI requires Node.js `>=22.20.0`.
+
+## Manual Install
 
 ```bash
 git clone git@github.com:namehousiqi/skills.git
