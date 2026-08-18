@@ -1,32 +1,38 @@
 ---
 name: hsq-develop
-description: 个人 Vibe Coding 开发流程。按根因优先、影响面分析、兼容性检查、证据验证和安全交付的偏好，处理软件诊断、实现、重构、性能、代码审查、Git 合并、API/配置设计、前端界面调整、自动化验证以及 Docker/K8s 部署问题。用户显式调用 $hsq-develop，或提出“排查原因”“实现修改”“检查代码”“性能分析”“界面调整”“自动化测试”“合并提交”“部署失败”等开发请求时使用。只有用户明确输入“一步步做”或“step by step”时才启用分步执行模式，不根据任务规模自动触发。
+description: 个人 Vibe Coding 开发流程。按第一性原理、根因优先、影响面分析、兼容性检查、证据验证和安全交付的偏好，处理软件诊断、功能实现、Bug 修复、重构、性能、代码审查、Git 操作、API/配置设计、前端界面调整和自动化验证。用户显式调用 $hsq-develop，或提出“排查原因”“实现修改”“修复 Bug”“检查代码”“性能分析”“界面调整”“自动化测试”“合并提交”等开发请求时使用。只有用户明确输入“一步步做”或“step by step”时才启用分步执行模式，不根据任务规模自动触发。
 ---
 
 # HSQ Develop
 
 ## 目标
 
-完成理解、分析、实施、验证和交付的工程闭环。保持项目现有框架、目录、工具和编码习惯；优先解决根因，控制影响面并保护兼容性。
+完成理解、分析、实施、验证和交付的工程闭环。功能开发和 Bug 修复从第一性原理出发，先区分可观察事实、硬约束、不变量和未验证假设，再推导最小模型或直接根因。保持项目现有框架、目录、工具和编码习惯；控制影响面并保护兼容性，思考与验证深度和任务风险相称。
 
 ## 渐进加载
 
 根据用户意图只读取匹配的二级文档，不要默认加载全部 `references/`：
 
 - 用户消息明确包含“`一步步做`”或不区分大小写的“`step by step`”：必须先读取 [step-by-step.md](references/step-by-step.md)。不要因为任务很大、功能点很多或用户说“拆分”而自动启用。
-- 排查、失败、卡顿、根因、性能或缓存：读取 [diagnosis-and-performance.md](references/diagnosis-and-performance.md)。
-- 实现、修改、修复、重构、API/配置设计、界面调整或自动化验证：读取 [implementation-and-verification.md](references/implementation-and-verification.md)。
+- 诊断、排查、失败、卡顿、根因、性能、缓存或分析 Bug 原因：读取 [diagnosis-and-performance.md](references/diagnosis-and-performance.md)。
+- 功能实现、修改、重构、API/配置设计、界面调整或自动化验证：读取 [implementation-and-verification.md](references/implementation-and-verification.md)。
+- Bug 修复：先读取 [diagnosis-and-performance.md](references/diagnosis-and-performance.md)，再读取 [implementation-and-verification.md](references/implementation-and-verification.md)。
+- 功能开发或 Bug 修复完成、准备最终交付总结时：读取 [delivery-summary.md](references/delivery-summary.md)。
 - 代码检查、review 或未提交代码审查：读取 [review.md](references/review.md)。
-- 合并、拉取、提交、分支操作、部署、容器或 K8s：读取 [git-and-deployment.md](references/git-and-deployment.md)。
+- 合并、拉取、提交或分支操作：读取 [git.md](references/git.md)。
 
 任务跨多个场景时只组合必要文档。分步模式下，先读取分步文档，再仅为当前步骤读取所需的一个或少量流程文档。
 
+其他专业 Skill 同时适用时，由 `hsq-develop` 约束个人工程偏好、权限、推进方式和交付质量，由专业 Skill 提供领域执行流程；遵守更具体的仓库规则，不重复执行冲突或等价步骤。
+
 ## 每项任务先做
 
-1. 阅读仓库级 `AGENTS.md`、README、相关设计文档和测试入口；遵守更具体的规则。
+按风险和改动规模裁剪调查与汇报深度；简单任务可以简化流程，但不能跳过适用的项目规则、Git 状态、验收条件和相关验证。
+
+1. 阅读适用的仓库级 `AGENTS.md`、README、相关设计文档和测试入口；遵守更具体的规则。
 2. 检查 `git status`、当前分支、基线和已有 staged、unstaged、untracked 改动；绝不覆盖用户已有修改。
 3. 识别技术栈、运行环境、配置来源、构建/测试/lint 命令和外部依赖。
-4. 把目标转成可验证的行为、边界和验收条件；在 commentary 中说明当前模式和检查范围。
+4. 把目标转成可验证的行为、边界和验收条件；在当前环境可用的进度更新渠道说明当前模式和检查范围。
 5. 使用 `rg`、结构化解析、调用链、日志、测试或基准获取证据，不凭文件名或直觉猜测。
 
 ## 权限与推进
@@ -38,10 +44,10 @@ description: 个人 Vibe Coding 开发流程。按根因优先、影响面分析
 
 ## 完成检查
 
-在完成前确认：
+只检查与当前任务相关的项目，不为简单任务展开无关分析：
 
 - 根因和证据是否明确，是否区分了放大因素？
-- 是否评估其他功能、tool、消费者、租户和部署环境？
+- 是否评估其他功能、tool、消费者、租户和运行环境？
 - 旧用户、旧数据、旧配置、默认值以及创建/更新语义是否兼容？
 - 是否覆盖并发、重复、乱序、重试、取消和刷新恢复路径？
 - 性能结论是否有基线和前后对照？
@@ -50,4 +56,4 @@ description: 个人 Vibe Coding 开发流程。按根因优先、影响面分析
 - Bug 根因是否可能在其他路径重复出现，并已在有候选时提醒用户？
 - 是否需要更新契约文档或 Wiki？
 
-交付总结包含行为变化、关键文件、验证结果、兼容性、配置/部署注意事项和剩余风险。
+功能开发或 Bug 修复完成后必须给出交付总结；其他任务按需总结。
