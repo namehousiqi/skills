@@ -1,0 +1,4 @@
+interface:
+  display_name: "ELI5 Explanation"
+  short_description: "Explain complex topics in plain language"
+  default_prompt: "Use $eli5 to create a simple visual HTML explainer for how this works."

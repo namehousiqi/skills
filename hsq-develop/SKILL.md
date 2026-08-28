@@ -16,6 +16,7 @@ description: 个人 Vibe Coding 开发流程。按第一性原理、根因优先
 - 用户消息明确包含“`一步步做`”或不区分大小写的“`step by step`”：必须先读取 [step-by-step.md](references/step-by-step.md)。不要因为任务很大、功能点很多或用户说“拆分”而自动启用。
 - 诊断、排查、失败、卡顿、根因、性能、缓存或分析 Bug 原因：读取 [diagnosis-and-performance.md](references/diagnosis-and-performance.md)。
 - 功能实现、修改、重构、API/配置设计、界面调整或自动化验证：读取 [implementation-and-verification.md](references/implementation-and-verification.md)。
+- 涉及 SQL、数据库结构变更、索引设计或后端 API 查询逻辑：读取 [database-and-api.md](references/database-and-api.md)。
 - Bug 修复：先读取 [diagnosis-and-performance.md](references/diagnosis-and-performance.md)，再读取 [implementation-and-verification.md](references/implementation-and-verification.md)。
 - 功能开发或 Bug 修复完成、准备最终交付总结时：读取 [delivery-summary.md](references/delivery-summary.md)。
 - 代码检查、review 或未提交代码审查：读取 [review.md](references/review.md)。
@@ -28,6 +29,8 @@ description: 个人 Vibe Coding 开发流程。按第一性原理、根因优先
 ## 每项任务先做
 
 按风险和改动规模裁剪调查与汇报深度；简单任务可以简化流程，但不能跳过适用的项目规则、Git 状态、验收条件和相关验证。
+
+检查去重：开始任务或加载本 Skill 后，先盘点当前会话、用户提供材料和已执行命令中的检查结果及证据。检查范围未变化且证据仍有效时直接复用，不重复运行；只补做尚未覆盖、范围发生变化、证据失效或本 Skill 新增要求的校验。因风险必须重复检查时，说明重复原因和变化点；技能触发本身不构成重新检查的理由。
 
 1. 阅读适用的仓库级 `AGENTS.md`、README、相关设计文档和测试入口；遵守更具体的规则。
 2. 检查 `git status`、当前分支、基线和已有 staged、unstaged、untracked 改动；绝不覆盖用户已有修改。
